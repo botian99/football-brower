@@ -9,13 +9,13 @@
           :rules="loginRules"
           class="login-form"
         >
-          <h3 class="title">登录账户</h3>
+          <h3 class="title">Login Account</h3>
           <el-form-item prop="username">
             <el-input
               v-model="loginForm.username"
               type="text"
               auto-complete="off"
-              placeholder="账号"
+              placeholder="Username"
             >
               <svg-icon
                 slot="prefix"
@@ -29,7 +29,7 @@
               v-model="loginForm.password"
               type="password"
               auto-complete="off"
-              placeholder="密码"
+              placeholder="Password"
               @keyup.enter.native="handleLogin"
             >
               <svg-icon
@@ -43,7 +43,7 @@
             <el-input
               v-model="loginForm.code"
               auto-complete="off"
-              placeholder="验证码"
+              placeholder="Verification Code"
               style="width: 63%"
               @keyup.enter.native="handleLogin"
             >
@@ -82,12 +82,12 @@
               style="width: 100%"
               @click.native.prevent="handleLogin"
             >
-              <span v-if="!loading">登 录</span>
-              <span v-else>登 录 中...</span>
+              <span v-if="!loading">Sign In</span>
+              <span v-else>During Sign In...</span>
             </el-button>
             <div style="float: right">
               <router-link class="link-type" :to="'/register'"
-                >立即注册</router-link
+                >Sign Up Now</router-link
               >
             </div>
           </el-form-item>

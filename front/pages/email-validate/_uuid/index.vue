@@ -5,22 +5,22 @@
         <el-result
           icon="success"
           v-if="success"
-          title="绑定成功"
-          subTitle="将在3秒后跳转到首页"
+          title="Binding successful"
+          subTitle="You will be redirected to the homepage in 3 seconds"
         >
           <template slot="extra">
-            <el-button type="primary" size="medium" @click="handlePush">首页</el-button>
+            <el-button type="primary" size="medium" @click="handlePush">Home Page</el-button>
           </template>
         </el-result>
 
         <el-result
           icon="error"
           v-else
-          title="绑定失败"
-          subTitle="请重新绑定，将在3秒后跳转到首页"
+          title="Binding failed"
+          subTitle="Please rebind, it will jump to the homepage in 3 seconds"
         >
           <template slot="extra">
-            <el-button type="primary" size="medium" @click="handlePush">返回</el-button>
+            <el-button type="primary" size="medium" @click="handlePush">Return</el-button>
           </template>
         </el-result>
       </div>
@@ -53,7 +53,7 @@ export default {
   mounted() {
 
     this.email(this.uuid);
-  
+
   },
   //监听组件渲染变化，促发定时任务
   updated(){
@@ -65,7 +65,7 @@ export default {
         this.$router.push("/");
         clearInterval(this.timer);
       }
-    }, 1000); 
+    }, 1000);
   },
   methods: {
     //获取所有内容
@@ -76,7 +76,7 @@ export default {
           this.success = response.data;
         })
         .catch((response) => {});
-      }, 
+      },
 
     //立即跳转并清除定时器
     handlePush() {
@@ -85,7 +85,7 @@ export default {
     }
 
 },
-    
+
 };
 </script>
 

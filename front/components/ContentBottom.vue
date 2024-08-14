@@ -10,9 +10,9 @@
           class="content-bottom-hover woo-box-flex woo-box-alignCenter woo-box-justifyCenter"
           @click="copys($event, contentObj.contentId)"
         >
-          <div class="woo-pop-wrap">
+          <div class="woo-pop-wrap flex-center">
             <img width="20" height="20" src="~/assets/images/fenxiang.png" />
-            <span>分享链接</span>
+            <span style="margin-left: 4px;">Share</span>
           </div>
         </div>
       </div>
@@ -22,22 +22,22 @@
           class="content-bottom-hover woo-box-flex woo-box-alignCenter woo-box-justifyCenter"
           @click="clickComment()"
         >
-          <div class="woo-pop-wrap">
+          <div class="woo-pop-wrap flex-center">
             <img width="20" height="20" src="~/assets/images/pinlun.png" />
             <!-- <svg-icon style="width: 18; height: 18" icon-class="comment" /> -->
-            <span>评论</span>
+            <span style="margin-left: 4px;">comment</span>
           </div>
         </div>
       </div>
       <!-- 赞 -->
-      <div class="woo-box-item-flex">
+      <div class="woo-box-item-flex ">
         <div
           class="content-bottom-hover woo-box-flex woo-box-alignCenter woo-box-justifyCenter"
           @click="setZan(contentObj.contentId)"
         >
-          <div class="woo-pop-wrap">
+          <div class="woo-pop-wrap flex-center">
             <img width="20" height="20" :src="zanImg" />
-            <span class="zan-num">{{ contentObj.loveCount }}</span>
+            <span class="zan-num" style="margin-left: 4px;">{{ contentObj.loveCount }}</span>
           </div>
         </div>
       </div>
@@ -186,5 +186,10 @@ export default {
 }
 .content-bottom-hover:hover {
   color: coral;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

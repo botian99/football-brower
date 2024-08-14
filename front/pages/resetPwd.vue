@@ -1,8 +1,8 @@
 <template>
   <div class="resetPwd">
     <div class="reset-step">
-      <h3 class="title">重置密码</h3>
-      
+      <h3 class="title">reset password</h3>
+
 
         <div>
           <el-form
@@ -16,7 +16,7 @@
                 v-model="resetForm1.email"
                 type="text"
                 auto-complete="off"
-                placeholder="请输入邮箱"
+                placeholder="Please enter your email address"
               >
                 <svg-icon
                   slot="prefix"
@@ -25,13 +25,13 @@
                 />
               </el-input>
             </el-form-item>
-            
+
 
             <el-form-item prop="code">
               <el-input
                 v-model="resetForm1.password"
                 auto-complete="off"
-                placeholder="新密码"
+                placeholder="New Password"
                 style="width: 63%"
               >
                 <svg-icon
@@ -40,7 +40,7 @@
                   class="el-input__icon input-icon"
                 />
               </el-input>
-              
+
             </el-form-item>
 
             <el-form-item style="width: 100%">
@@ -49,7 +49,7 @@
                 :loading="loading"
                 type="success"
                 @click="handleUpdatePassword"
-                >确认</el-button
+                >OK</el-button
               >
             </el-form-item>
           </el-form>
@@ -75,12 +75,12 @@ export default {
         password: "",
       },
       resetForm1Rules: {
-        
+
         // code: [{ required: true, trigger: "change", message: "请出入密码" }],
         // email: [{ required: true, trigger: "change", message: "请输入邮箱" }],
       },
       resetForm2Rules: {
-        
+
       },
 
       codeUrl: "",

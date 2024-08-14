@@ -2,13 +2,13 @@
   <div class="publish-content">
     <el-row>
       <el-col :span="8" :xs="20">
-        <el-dialog title="快捷发布" :visible.sync="dialog" width="600px;">
+        <el-dialog title="Quick release" :visible.sync="dialog" width="600px;">
           <div>
             <div>
               <el-input
                 type="textarea"
                 :autosize="{ minRows: 2, maxRows: 10 }"
-                placeholder="请输入内容"
+                placeholder="Please enter the content"
                 v-model="contentParam.content"
                 maxlength="500"
                 show-word-limit
@@ -20,7 +20,7 @@
                   <div class="woo-box-item-inlineBlock">
                     <el-cascader
                       size="small"
-                      placeholder="请选择分类"
+                      placeholder="Please choose a category"
                       v-model="cascader"
                       :options="categoryOptions"
                       :props="props"
@@ -33,8 +33,8 @@
                       v-model="contentParam.isAnonymous"
                       active-value="1"
                       inactive-value="0"
-                      active-text="匿名"
-                      inactive-text="不匿名"
+                      active-text="anonymous"
+                      inactive-text="not anonymous"
                     />
 
                   <div class="woo-box-item-inlineBlock">
@@ -48,7 +48,7 @@
                         style="width: 18px; height: 18px"
                         icon-class="picture"
                       />
-                      <span class="iconbed-text">图片</span>
+                      <span class="iconbed-text">picture</span>
                     </el-button>
                   </div>
                   <div class="woo-box-item-inlineBlock">
@@ -62,7 +62,7 @@
                         style="width: 18px; height: 18px"
                         icon-class="video"
                       />
-                      <span class="iconbed-text">视频</span>
+                      <span class="iconbed-text">video</span>
                     </el-button>
                   </div>
                 </div>
@@ -73,11 +73,11 @@
                   :disabled="contentParam.content.length <= 0"
                   @click="publishContent()"
                 >
-                  发布
+                  Release
                 </el-button>
               </div>
               <el-upload
-                style="height: 15x"
+                style="height: 15px"
                 :headers="upload.headers"
                 v-show="upload.show"
                 ref="upload"
@@ -184,7 +184,7 @@ export default {
               this.$router.push({ path: "/user/profile" });
             } else {
               this.$message.warning(
-                "将再 " + count + " 秒后跳转到绑定邮箱页面"
+                "Will be redirected to the bound email page after" + count +"seconds"
               );
             }
           }, 1000); //1000毫秒后执行
@@ -240,13 +240,13 @@ export default {
         fileList.splice(fileList.length - 1, 1);
         this.$message.warning(response.msg);
         setTimeout(() => {
-          this.$message.error("上传失败，请重新上传");
+          this.$message.error("Upload failed, please upload again");
         }, 1000);
       }
       this.checkBtn();
     },
     handleError(err, file, fileList) {
-      this.$message.error("上传失败");
+      this.$message.error("Upload failed");
       this.checkBtn();
     },
     //文件改变
@@ -273,7 +273,7 @@ export default {
       this.checkBtn();
     },
     handleExceed(files, fileList) {
-      this.$message.warning(`上传数量超过限制`);
+      this.$message.warning(`Upload quantity exceeds limit`);
     },
     //验证文件类型
     validated(file) {
@@ -281,22 +281,22 @@ export default {
       const size = file.size / 1024 / 1024;
       if (this.selectType == 1) {
         if (!file.raw.type.startsWith("image")) {
-          this.$message.warning(`请选择图片`);
+          this.$message.warning(`Please select an image`);
           this.fileList.splice(this.fileList.length - 1, 1);
         }
 
         if (size > 5) {
           this.fileList.splice(this.fileList.length - 1, 1);
-          this.$message.warning("上传的图片大小不能超过 5MB!");
+          this.$message.warning("The size of the uploaded image cannot exceed 5MB!");
         }
       } else {
         if (!file.raw.type.startsWith("video")) {
-          this.$message.warning(`请选择视频`);
+          this.$message.warning(`Please select a video`);
           this.fileList.splice(this.fileList.length - 1, 1);
         }
         if (size > 20) {
           this.fileList.splice(this.fileList.length - 1, 1);
-          this.$message.warning("上传的视频大小不能超过 20MB!");
+          this.$message.warning("The size of the uploaded video cannot exceed 20MB!");
         }
       }
     },
@@ -325,14 +325,14 @@ export default {
         }
       }
       if (this.cascader.length != 2) {
-        this.$message.warning("请选择分类");
+        this.$message.warning("Please choose a category");
         return;
       } else {
         this.contentParam.categoryId = this.cascader[1];
       }
       //请求
       operateApi.publishContent(this.contentParam).then((response) => {
-        this.$message.success("发表成功");
+        this.$message.success("Release Success");
         this.$router.push({ path: "/User/management?types=1" });
       });
     },

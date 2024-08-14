@@ -1,7 +1,7 @@
 
 /**
  * 通用js方法封装处理
- * Copyright (c) 2023 
+ * Copyright (c) 2023
  */
 
 import { parseTime } from "@/utils/ruoyi";
@@ -32,21 +32,21 @@ export function diffTime(startDate, endDate) {
   // 计算相差秒数
   var leave3 = leave2 % (60 * 1000) // 计算分钟数后剩余的毫秒数
   var seconds = Math.round(leave3 / 1000)
-  var returnStr = seconds + '秒'
-  var returnStr = '1分'
+  var returnStr = seconds + 'seconds'
+  var returnStr = '1minutes'
   if (minutes > 0) {
-    returnStr = minutes + '分'
+    returnStr = minutes + ' minutes'
   }
   if (hours > 0) {
-    returnStr = hours + '小时'
+    returnStr = hours + ' hours'
   }
   if (days > 0) {
-    returnStr = days + '天'
+    returnStr = days + ' days'
   }
   if (days > 30) {
     returnStr = parseInt(days / 30) + '月'
   }
-  return returnStr + "前"
+  return returnStr + " ago"
 }
 
 //处理时间格式

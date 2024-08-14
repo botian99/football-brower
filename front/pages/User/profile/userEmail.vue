@@ -1,13 +1,13 @@
 <template>
   <div>
     <el-form ref="emailForm" :model="emailForm" :rules="emailRules">
-      <h3>密码验证</h3>
+      <h3>password authentication</h3>
       <el-form-item prop="password">
         <el-input
           v-model="emailForm.password"
           type="password"
           auto-complete="off"
-          placeholder="密码"
+          placeholder="Password"
         >
           <svg-icon
             slot="prefix"
@@ -21,7 +21,7 @@
           v-model="emailForm.email"
           type="text"
           auto-complete="off"
-          placeholder="邮箱"
+          placeholder="Email"
         >
           <svg-icon
             slot="prefix"
@@ -34,7 +34,7 @@
         <el-input
           v-model="emailForm.code"
           auto-complete="off"
-          placeholder="验证码"
+          placeholder="Code"
           style="width: 63%"
           @keyup.enter.native="handleEmail"
         >
@@ -57,8 +57,8 @@
           style="width: 100%"
           @click.native.prevent="handleEmail"
         >
-          <span v-if="!loading">{{ isShow ? count : "开始绑定" }}</span>
-          <span v-else>请 求 中...</span>
+          <span v-if="!loading">{{ isShow ? count : "Start binding" }}</span>
+          <span v-else>Request in progress...</span>
         </el-button>
       </el-form-item>
     </el-form>
@@ -79,7 +79,7 @@ export default {
       //判断用户名是否存在
       checkEmailUnique(value).then((response) => {
         if (response.data !== true) {
-          callback(new Error("邮箱已经存在"));
+          callback(new Error("Email already exists"));
           return;
         } else {
           callback();
@@ -89,16 +89,16 @@ export default {
     return {
       emailRules: {
         email: [
-          { required: true, message: "邮箱地址不能为空", trigger: "blur" },
+          { required: true, message: "Email address cannot be empty", trigger: "blur" },
           {
             type: "email",
-            message: "请输入正确的邮箱地址",
+            message: "Please enter the correct email address",
             trigger: ["blur", "change"],
           },
           { required: true, validator: checkEmail, trigger: "blur" },
         ],
-        password: [{ required: true, message: "密码不能为", trigger: "blur" }],
-        code: [{ required: true, message: "验证码不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "Password cannot be empty", trigger: "blur" }],
+        code: [{ required: true, message: "The verification code cannot be empty", trigger: "blur" }],
       },
       emailForm: {
         password: "",

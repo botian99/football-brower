@@ -4,7 +4,7 @@
       <div class="user-info-head" @click="editCropper()">
         <img
           v-bind:src="options.img"
-          title="点击上传头像"
+          title="Click to upload avatar"
           class="img-circle img-lg"
         />
       </div>
@@ -49,7 +49,7 @@
               :before-upload="beforeUpload"
             >
               <el-button size="small">
-                选择
+                Select
                 <i class="el-icon-upload el-icon--right"></i>
               </el-button>
             </el-upload>
@@ -84,7 +84,7 @@
           </el-col>
           <el-col :lg="{ span: 2, offset: 6 }" :md="2">
             <el-button type="primary" size="small" @click="uploadImg()"
-              >提 交</el-button
+              >Submit</el-button
             >
           </el-col>
         </el-row>
@@ -111,7 +111,7 @@ export default {
       // 是否显示cropper
       visible: false,
       // 弹出层标题
-      title: "修改头像",
+      title: "Modify avatar",
       options: {
         img: "", //裁剪图片的地址
         autoCrop: true, // 是否默认生成截图框
@@ -161,7 +161,7 @@ export default {
     beforeUpload(file) {
       if (file.type.indexOf("image/") == -1) {
         this.$message.error(
-          "文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。"
+          "The file format is incorrect. Please upload the image type, such as JPG or PNG files with suffixes."
         );
       } else {
         const reader = new FileReader();
@@ -180,7 +180,7 @@ export default {
           this.open = false;
           this.options.img = this.handleCampusUrl(response.imgUrl);
           // store.commit('SET_AVATAR', this.options.img);
-          this.$message.success("修改成功");   //调用Element库中的内置对象方法弹出成功的提示框
+          this.$message.success("Modified successfully");   //调用Element库中的内置对象方法弹出成功的提示框
           this.visible = false;
           window.location.reload();
         });

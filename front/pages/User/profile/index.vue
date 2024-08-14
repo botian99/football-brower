@@ -3,7 +3,7 @@
     <client-only
       ><el-card style="width: 600px">
         <div slot="header" class="clearfix">
-          <span>基本资料</span>
+          <span>Basic information</span>
         </div>
         <div class="box-card">
           <div class="text-center">
@@ -11,10 +11,10 @@
           </div>
         </div>
         <el-tabs v-model="activeTab">
-          <el-tab-pane label="基本资料" name="userinfo">
+          <el-tab-pane label="Basic information" name="userinfo">
             <userInfo :user="user" />
           </el-tab-pane>
-          <el-tab-pane label="修改密码" name="resetPwd">
+          <el-tab-pane label="Change Password" name="resetPwd">
             <resetPwd />
           </el-tab-pane>
         </el-tabs> </el-card

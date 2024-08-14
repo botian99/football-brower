@@ -5,8 +5,8 @@
         ><div class="grid-content"></div
       ></el-col>
       <el-col :xs="20" :sm="15" :md="14" :lg="12" :xl="12"
-        ><div class="grid-content text">
-          发布管理
+        ><div class="grid-content text" style="display: flex; justify-content: center; align-items: center;">
+        Release Management
           <svg
             t="1638267182271"
             class="icon"
@@ -17,6 +17,7 @@
             data-spm-anchor-id="a313x.7781069.0.i31"
             width="30"
             height="30"
+            style="margin-left: 5px;"
           >
             <path
               d="M511.3 860.7c-2 0-3.9-0.4-5.9-1.2-1-0.4-104.6-44.1-165.5-44.1-31.7 0-55.8 6.2-79.1 12.2-22.6 5.8-45.9 11.8-74.6 11.8-28.9 0-51.5-15.9-63.8-44.8-8.6-20.2-9.4-40.2-9.4-41V283.8c0-33.1 10.2-59.9 30.3-79.7 28.4-28 75.3-41.1 143.2-40.1h83.1c51.1 0 86.4 8.4 111 26.3 29 21.1 43.1 54.9 43.1 103.5V604c0 8.3-6.7 15-15 15s-15-6.7-15-15V293.8c0-72.8-33.6-99.8-124.1-99.8h-83.4c-58.7-0.9-99.7 9.7-121.8 31.5-14.4 14.1-21.4 33.2-21.4 58.3v468.9c0.2 4.3 3.6 56.7 43.2 56.7 24.9 0 45.4-5.3 67.2-10.9 25.1-6.5 51.1-13.1 86.6-13.1 67 0 172.7 44.6 177.2 46.5 7.6 3.2 11.2 12 7.9 19.7-2.4 5.6-7.9 9.1-13.8 9.1z"
@@ -68,45 +69,45 @@
           <!-- 复选框 -->
           <!-- <el-table-column type="selection" width="55" /> -->
 
-          <el-table-column type="index" width="50" label="序号" />
+          <el-table-column type="index" width="80" label="Order" />
           <!-- <el-table-column prop="cid" label="cid" /> -->
 
           <el-table-column
             prop="params.categoryName"
-            width="100"
-            label="分类名"
+            width="130"
+            label="Category Name"
           />
 
-          <el-table-column prop="content" width="500" label="内容" />
+          <el-table-column prop="content" width="400" label="Content" />
 
-          <el-table-column label="状态" width="80">
+          <el-table-column label="Status" width="80">
             <template slot-scope="scope">
               {{ handleStatus(scope.row.status) }}</template
             >
           </el-table-column>
 
-          <el-table-column label="方式" width="100%">
+          <el-table-column label="Way" width="100">
             <template slot-scope="scope">{{
               scope.row.type === 0
-                ? "文字"
+                ? "characters"
                 : scope.row.type === 1
-                ? "图片"
-                : "视频"
+                ? "picture"
+                : "video"
             }}</template>
           </el-table-column>
 
-          <el-table-column label="类型" width="100%">
+          <el-table-column label="type" width="140">
             <template slot-scope="scope">{{
-              scope.row.isAnonymous === 0 ? "不匿名" : "匿名"
+              scope.row.isAnonymous === 0 ? "Not anonymous" : "anonymous"
             }}</template>
           </el-table-column>
 
-          <el-table-column prop="createTime" width="170px" label="发布时间" />
+          <el-table-column prop="createTime" width="170px" label="Release time" />
 
           <el-table-column
             fixed="right"
-            label="操作"
-            width="115"
+            label="Action"
+            width="130"
             align="center"
           >
             <template slot-scope="scope">
@@ -124,7 +125,7 @@
                 size="small"
                 icon="el-icon-delete"
                 @click="dialogOpen(scope.row.contentId)"
-                >删除</el-button
+                >Delete</el-button
               >
             </template>
           </el-table-column>

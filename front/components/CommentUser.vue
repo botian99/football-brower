@@ -26,7 +26,7 @@
                 class="comment-item-tag"
                 style="background: rgb(254, 44, 85)"
                 v-if="commentObj.userId == contentObj.userId"
-                ><span>作者</span>
+                ><span>Author</span>
               </span>
             </div>
 
@@ -39,7 +39,7 @@
             >
               <div>
                 <span> {{ handelTimeFormat(commentObj.createTime) }} </span>
-                <span>·{{ commentObj.address }}</span>
+<!--                <span>·{{ commentObj.address }}</span>-->
               </div>
               <div class="woo-box-flex" style="margin-right: 20px">
                 <div
@@ -67,11 +67,11 @@
     </div>
 
     <!-- 评论弹出框 -->
-    <el-dialog title="回复" :visible.sync="dialog" width="600px" append-to-body>
+    <el-dialog title="reply" :visible.sync="dialog" width="600px" append-to-body>
       <div class="woo-box-item-flex" style="align-self: center">
         <el-input
           type="textarea"
-          placeholder="发布你的回复"
+          placeholder="Post your reply"
           :autosize="{ minRows: 2, maxRows: 5 }"
           v-model="dialogText"
           maxlength="100"
@@ -88,7 +88,7 @@
           :disabled="dialogText.length <= 0"
           @click="addCommentChild()"
         >
-          回复
+          reply
         </el-button>
       </div>
     </el-dialog>
@@ -143,16 +143,16 @@ export default {
     },
     //删除自己的评论
     delOwnComment(commentId) {
-      this.$confirm("是否删除评论？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("Do you want to delete the comment?", "Tips", {
+        confirmButtonText: "OK",
+        cancelButtonText: "CANCEL",
         type: "warning",
       })
         .then(() => {
           operateApi.delOwnComment(commentId).then((response) => {
             this.$message({
               type: "success",
-              message: "删除成功!",
+              message: "Delete Success!",
             });
             this.isDel = 1;
           });
@@ -160,7 +160,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "Cancelled deletion",
           });
         });
     },
@@ -173,7 +173,7 @@ export default {
       operateApi.toComment(this.toCommentQuery).then((response) => {
         this.$message({
           type: "success",
-          message: "评论成功!",
+          message: "Comment success!",
         });
         this.dialogText = "";
         this.$emit("co-success", response);

@@ -18,8 +18,8 @@
           <div class="woo-box-item-flex" style="align-self: center">
             <el-input
               type="textarea"
-              :autosize="{ minRows: 1.3, maxRows: 5 }"
-              placeholder="发布你的评论"
+              :autosize="{ minRows: 2, maxRows: 5 }"
+              placeholder="Post your comment"
               v-model="toCommentQuery.coContent"
               maxlength="100"
               show-word-limit
@@ -27,7 +27,7 @@
             </el-input>
           </div>
 
-          <div style="margin-top: 10px">
+          <div style="margin-top: 10px; margin-bottom: 10px;">
             <div class="woo-box-flex woo-box-alignCenter">
               <div class="woo-box-item-flex" style="align-self: center"></div>
               <el-button
@@ -36,7 +36,7 @@
                 :disabled="toCommentQuery.coContent.length <= 0"
                 @click="addComment()"
               >
-                评论
+                Comment
               </el-button>
             </div>
           </div>
@@ -68,7 +68,7 @@
                 class="comment-item-tag"
                 v-if="item.userId == contentObj.userId"
                 style="background: rgb(254, 44, 85)"
-                ><span>作者</span>
+                ><span>Author</span>
               </span>
             </div>
 
@@ -81,7 +81,7 @@
             >
               <div>
                 <span> {{ handelTimeFormat(item.createTime) }} </span>
-                <span>·{{ item.address }}</span>
+<!--                <span>·{{ item.address }}</span>-->
               </div>
               <!-- 删除 回复 -->
               <div class="woo-box-flex" style="margin-right: 20px">
@@ -128,7 +128,7 @@
               @click="showChildren(item)"
             >
               <div style="color: #eb7350; text-align: left">
-                <span>共{{ item.childrenCount }}条回复</span>
+                <span>Total {{item. childrenCount}} replies</span>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@
         <div
           class="woo-box-flex woo-box-alignCenter woo-box-justifyCenter CommentFeed_more"
         >
-          <div>查看全部{{ commentTotal }}条评论</div>
+          <div>View all {{commentTotal}} comments</div>
           <i class="woo-font woo-font--angleRight"></i>
         </div>
       </nuxt-link>
@@ -170,11 +170,11 @@
     </div>
 
     <!-- 评论弹出框 -->
-    <el-dialog title="回复" :visible.sync="dialog" width="600px">
+    <el-dialog title="Reply" :visible.sync="dialog" width="600px">
       <div class="woo-box-item-flex" style="align-self: center">
         <el-input
           type="textarea"
-          placeholder="发布你的回复"
+          placeholder="Post your reply"
           :autosize="{ minRows: 2, maxRows: 5 }"
           v-model="dialogText"
           maxlength="100"
@@ -191,13 +191,13 @@
           :disabled="dialogText.length <= 0"
           @click="addCommentChild()"
         >
-          回复
+          Reply
         </el-button>
       </div>
     </el-dialog>
 
     <!-- 子评论内容弹出框 -->
-    <el-dialog title="回复列表" :visible.sync="dialogChildren" width="600px">
+    <el-dialog title="Reply List" :visible.sync="dialogChildren" width="600px">
       <div>
         <CommentChild
           v-if="dialogChildren"
@@ -303,7 +303,7 @@ export default {
       operateApi.toComment(this.toCommentQuery).then((response) => {
         this.$message({
           type: "success",
-          message: "评论成功!",
+          message: "Comment success!",
         });
         this.toCommentQuery.coContent = "";
         this.getCommentList(1);
@@ -311,16 +311,16 @@ export default {
     },
     //删除自己的评论
     delOwnComment(commentId) {
-      this.$confirm("是否删除评论？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("Do you want to delete the comment？", "Tips", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
         type: "warning",
       })
         .then(() => {
           operateApi.delOwnComment(commentId).then((response) => {
             this.$message({
               type: "success",
-              message: "删除成功!",
+              message: "Delete success!",
             });
             //删除集合的元素
             this.commentOneLevelList = this.commentOneLevelList.filter(
@@ -331,7 +331,7 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "Cancelled deletion",
           });
         });
     },
@@ -348,7 +348,7 @@ export default {
       operateApi.toComment(this.toCommentQuery).then((response) => {
         this.$message({
           type: "success",
-          message: "评论成功!",
+          message: "Comment success!",
         });
         this.dialogText = "";
         this.toCommentQuery.coContent = "";

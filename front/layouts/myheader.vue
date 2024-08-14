@@ -52,7 +52,7 @@
           <div style="font-weight: bold; text-align: left; padding-top: 10px">
             <router-link :to="{ name: 'userlogin' }">
               <div v-if="userName == '' && this.$route.path != '/userlogin'">
-                <span class="sad">登录/注册</span>
+                <span class="sad">sign in/sign up</span>
               </div>
             </router-link>
             <el-dropdown
@@ -73,8 +73,9 @@
                   <el-dropdown-item
                     command="/User/edit"
                     style="font-weight: bolder"
+                    class="text-between-space"
                   >
-                    个人
+                    your profile
                     <svg
                       t="1638274029049"
                       class="icon"
@@ -98,12 +99,13 @@
                         class=""
                       ></path>
                     </svg> </el-dropdown-item
-                ></span>
+                  ></span>
                 <span @click="routingmanagement()">
                   <el-dropdown-item
                     command="/user/management"
                     style="font-weight: bolder"
-                    >管理
+                    class="text-between-space"
+                  >settings
                     <svg
                       t="1638267182271"
                       class="icon"
@@ -137,12 +139,13 @@
                         fill="#1afa29"
                       ></path>
                     </svg> </el-dropdown-item
-                ></span>
+                  ></span>
                 <span @click="publish()">
                   <el-dropdown-item
                     command="/User/release"
                     style="font-weight: bolder"
-                    >发布
+                    class="text-between-space"
+                  >release
                     <svg
                       t="1638265991107"
                       class="icon"
@@ -169,13 +172,14 @@
                         fill="#90EDCD"
                       ></path>
                     </svg> </el-dropdown-item
-                ></span>
+                  ></span>
                 <span @click="exit()">
                   <el-dropdown-item
                     command="/logout"
                     divided
                     style="font-weight: bolder"
-                    >退出
+                    class="text-between-space"
+                  >sign out
                     <svg
                       t="1638276918283"
                       class="icon"
@@ -201,7 +205,7 @@
                         data-spm-anchor-id="a313x.7781069.0.i36"
                         class=""
                       ></path></svg></el-dropdown-item
-                ></span>
+                  ></span>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -286,5 +290,12 @@ a {
 }
 .router-link-active {
   text-decoration: none;
+}
+.text-between-space {
+  width: 130px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

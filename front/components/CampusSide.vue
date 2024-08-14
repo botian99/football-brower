@@ -2,7 +2,7 @@
   <div class="campus-side">
     <div class="campus-side-main">
       <div class="wbpro-side-tit woo-box-flex woo-box-alignCenter">
-        <div class="campus-side-title woo-box-item-flex">热度榜</div>
+        <div class="campus-side-title woo-box-item-flex">Hot List</div>
       </div>
       <div class="woo-divider-main woo-divider-x"><!----></div>
       <div class="campus-side-card">
@@ -85,9 +85,19 @@ export default {
   padding: 0 18px;
 }
 .campus-side-title {
+  display: flex;
+  align-items: center;
   align-self: center;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 15px;
+  line-height: 20px;
+}
+.campus-side-title::before {
+  content: '';
+  margin-right: 10px;
+  display: inline-block;
+  width: 4px;
+  height: 20px;
+  background-color: #0082ff;
 }
 .side-rank-num {
   font-size: 16px;

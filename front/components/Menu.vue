@@ -2,7 +2,6 @@
   <div style="margin: 20px 8px 0 0">
     <div class="campus-menu" :style="{ height: menuHeight + 'px' }">
       <div>
-        <h2 class="nav-title">首页</h2>
         <el-menu
           style="width: 182px"
           default-active="1"
