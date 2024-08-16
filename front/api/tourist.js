@@ -1,4 +1,6 @@
 import request from '@/utils/request'
+import footballRequest from "@/utils/footballRequest";
+import axios from "axios";
 
 const api_name = `/tourist`
 
@@ -78,5 +80,15 @@ export default {
             method: `post`,
             data: loginVo
         });
-    }
+    },
+  getEuFootballGamesList() {
+      return footballRequest({
+        url: '/football/matches',
+        params: {
+          dateFrom: '2024-05-10',
+          dateTo: '2024-05-18',
+          competitions: 'PL,FL1,BL1,SA,PD,WC,EC,CS',
+        }
+      });
+  }
 }

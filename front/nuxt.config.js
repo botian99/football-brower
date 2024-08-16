@@ -55,7 +55,22 @@ module.exports = {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+
+  axios: {
+    proxy: true // Can be also an object with default options
+  },
+  proxy: {
+    '/football': {
+      changeOrigin: true,
+      target: 'https://api.football-data.org/v4', // 允许跨域的服务器地址
+      pathRewrite: {
+        '^/football': ''
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

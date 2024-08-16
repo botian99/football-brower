@@ -12,24 +12,33 @@
       <div class="woo-box-flex" :style="{ 'min-height': mainMinHeight + 'px' }">
         <!-- 消息盒子 -->
         <div class="content-t" v-loading="loading">
-          <Content
-            v-for="(item, key) in contentObj"
-            :key="key"
-            :contentObj="item"
-            :loveContentIds="loveContentIds"
-          ></Content>
-          <!-- 分页 -->
-          <div class="fenye" v-if="!loading">
-            <el-pagination
-              :hide-on-single-page="true"
-              background
-              layout="prev, pager, next"
-              :total="total"
-              :current-page="currentPage"
-              :page-size="5"
-              @current-change="handleCurrentChange"
-            >
-            </el-pagination>
+          <el-empty :description="'暂无数据'" v-if="contentObj.length === 0"></el-empty>
+          <div v-if="contentVo.categoryId === '123' " style="width: 605px;">
+            <FootballGame v-for="(item, key) in contentObj"
+                              :key="key"
+                              :gameInfo="item"
+            ></FootballGame>
+          </div>
+          <div v-else>
+            <Content
+              v-for="(item, key) in contentObj"
+              :key="key"
+              :contentObj="item"
+              :loveContentIds="loveContentIds"
+            ></Content>
+            <!-- 分页 -->
+            <div class="fenye" v-if="!loading">
+              <el-pagination
+                :hide-on-single-page="true"
+                background
+                layout="prev, pager, next"
+                :total="total"
+                :current-page="currentPage"
+                :page-size="5"
+                @current-change="handleCurrentChange"
+              >
+              </el-pagination>
+            </div>
           </div>
         </div>
         <!-- 侧边栏内容 -->
@@ -77,7 +86,7 @@ export default {
 
   //创建的时候自动调用
   created() {
-    
+
     this.getAllCategorys();
     this.getContent(this.contentVo);
   },
@@ -90,12 +99,32 @@ export default {
   methods: {
     //点击菜单后（子组件传递数据）
     selectCatrgory(data) {
+      console.log(data);
+      this.contentObj = []
       this.contentVo.categoryId = data;
-      this.getContent(this.contentVo);
+      if (this.contentVo.categoryId === '123') {
+        this.getEuFootballGames();
+      } else {
+        this.getContent(this.contentVo);
+      }
+    },
+
+    getEuFootballGames() {
+      this.loading = true;
+      touristApi.getEuFootballGamesList().then((response) => {
+        console.log(response.data);
+        this.categoryObj = response.data;
+        this.contentObj = response.data.matches;
+        this.loading = false;
+      }).catch((err) => {
+        console.log(err);
+        this.loading = false;
+      })
     },
 
     //获取全部分类
     getAllCategorys() {
+
       touristApi
         .getCategoryList()
         .then((response) => {
@@ -105,6 +134,7 @@ export default {
     },
     //获取所有内容
     getContent(contentVo) {
+      this.contentObj = []
       this.loading = true;
       touristApi
         .getContent(contentVo)
