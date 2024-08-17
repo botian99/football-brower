@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ActivityMapper">
+
+    <!-- 查询活动列表 -->
+    <select id="selectList" resultType="com.example.ActivityEntity">
+        SELECT * FROM activity
+        <where>
+            <if test="activityEntity != null">
+                <if test="activityEntity.id != null">
+                    AND id = #{activityEntity.id}
+                </if>
+                <if test="activityEntity.name != null">
+                    AND name = #{activityEntity.name}
+                </if>
+                <if test="activityEntity.description != null">
+                    AND description = #{activityEntity.description}
+                </if>
+                <if test="activityEntity.startTime != null">
+                    AND start_time = #{activityEntity.startTime}
+                </if>
+                <if test="activityEntity.endTime != null">
+                    AND end_time = #{activityEntity.endTime}
+                </if>
+                <if test="activityEntity.location != null">
+                    AND location = #{activityEntity.location}
+                </if>
+                <if test="activityEntity.createTime != null">
+                    AND create_time = #{activityEntity.createTime}
+                </if>
+                <if test="activityEntity.updateTime != null">
+                    AND update_time = #{activityEntity.updateTime}
+                </if>
+                <if test="activityEntity.status != null">
+                    AND status = #{activityEntity.status}
+                </if>
+                <!-- 添加其他条件 -->
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据ID查询活动 -->
+    <select id="selectById" resultType="com.example.ActivityEntity">
+        SELECT * FROM activity WHERE id = #{activityId}
+    </select>
+
+    <!-- 插入活动 -->
+    <insert id="insert">
+        INSERT INTO activity (id, name, description, start_time, end_time, location, create_time, update_time, status)
+        VALUES (#{activity.id}, #{activity.name}, #{activity.description}, #{activity.startTime}, #{activity.endTime}, #{activity.location}, #{activity.createTime}, #{activity.updateTime}, #{activity.status})
+    </insert>
+
+    <!-- 更新活动 -->
+    <update id="updateById">
+        UPDATE activity
+        <set>
+            <if test="activity.name != null">
+                name = #{activity.name},
+            </if>
+            <if test="activity.description != null">
+                description = #{activity.description},
+            </if>
+            <if test="activity.startTime != null">
+                start_time = #{activity.startTime},
+            </if>
+            <if test="activity.endTime != null">
+                end_time = #{activity.endTime},
+            </if>
+            <if test="activity.location != null">
+                location = #{activity.location},
+            </if>
+            <if test="activity.createTime != null">
+                create_time = #{activity.createTime},
+            </if>
+            <if test="activity.updateTime != null">
+                update_time = #{activity.updateTime},
+            </if>
+            <if test="activity.status != null">
+                status = #{activity.status},
+            </if>
+            <!-- 添加其他字段 -->
+        </set>
+        WHERE id = #{activity.id}
+    </update>
+
+    <!-- 删除活动 -->
+    <delete id="deleteById">
+        DELETE FROM activity WHERE id = #{activityId}
+    </delete>
+
+    <!-- 其他方法... -->
+</mapper>
