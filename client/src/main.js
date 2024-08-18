@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
+import locale from 'element-ui/lib/locale/lang/en'
 
 import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
@@ -73,7 +74,8 @@ DictData.install()
  */
 
 Vue.use(Element, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
+  size: Cookies.get('size') || 'medium',// set element-ui default size
+  locale 
 })
 
 Vue.config.productionTip = false
