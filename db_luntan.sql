@@ -43,14 +43,8 @@ CREATE TABLE `campus_category` (
 insert  into `campus_category`(`category_id`,`category_name`,`parent_id`,`order_num`,`slug`,`description`,`type`,`icon`,`status`,`del_flag`,`create_time`,`create_user`,`update_time`,`update_user`) values 
 (1,'最新资讯',0,0,'newest','最近的墙内容(菜单默认选择这个)','Y','system','0','\0','2022-12-30 20:11:41',1,'2023-01-01 22:23:49',1),
 (123,'比赛实况',0,2,'friends','','N','system','0','\0','2021-10-15 10:32:00',NULL,'2023-04-07 19:30:12',1),
-(1449212758636646402,'欧冠',123,1,'debunk','吐槽描述','N','system','0','\0','2021-10-16 11:17:01',NULL,'2023-01-01 22:26:29',1),
 (1465662542308495361,'足球活动',0,3,'share','','N','system','0','\0','2021-11-30 20:42:35',NULL,'2022-12-26 17:57:48',1),
-(1602336520042287105,'我创建的',1465662542308495361,2,'daily_sharing',NULL,'N','system','0','\0','2022-12-13 00:16:11',1,'2022-12-26 17:57:51',1),
-(1602336520041231235,'我参与的',1465662542308495361,2,'daily_sharing',NULL,'N','system','0','\0','2022-12-13 00:16:11',1,'2022-12-26 17:57:51',1),
-(1644302032332709889,'世界杯',123,2,'make_friends',NULL,'N','system','0','\0','2023-04-07 19:32:09',1,'2023-04-07 19:32:08',1),
 (1644302999660847105,'购物广场',0,4,'buy_and_sell',NULL,'N','system','0','\0','2023-04-07 19:35:59',1,'2023-04-07 19:35:59',1),
-(1644303286433800193,'热门',1644302999660847105,1,'want_to_buy',NULL,'N','system','0','\0','2023-04-07 19:37:08',1,'2023-04-07 19:37:07',1),
-(1644303516352962562,'最新',1644302999660847105,2,'sell',NULL,'N','system','0','\0','2023-04-07 19:38:03',1,'2023-04-07 19:38:02',1),
 /*Table structure for table `campus_comment` */
 
 DROP TABLE IF EXISTS `campus_comment`;
@@ -878,3 +872,30 @@ insert  into `sys_user_role`(`user_id`,`role_id`) values
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- auto-generated definition
+create table activity
+(
+    id          bigint auto_increment
+        primary key,
+    name        varchar(255) null,
+    description text         null,
+    start_time  datetime     null,
+    end_time    datetime     null,
+    location    varchar(255) null,
+    create_time datetime     null,
+    update_time datetime     null,
+    status      int          null,
+    creator_id  bigint       null,
+    user_list   varchar(255) null
+);
+
+-- Insert activity data
+INSERT INTO activity (name, description, start_time, end_time, location, create_time, update_time, status, creator_id, user_list)
+VALUES
+    ('Football Match - Friendly Game', 'Friendly game against the local team', '2024-08-20 15:00:00', '2024-08-20 17:00:00', 'City Stadium', NOW(), NOW(), 1, 1, ''),
+    ('Football Training - Basic Training', 'Basic skills training session', '2024-08-21 09:00:00', '2024-08-21 11:00:00', 'Training Hall', NOW(), NOW(), 1, 1, ''),
+    ('Football Championship - Group Stage', 'Regional football championship group stage', '2024-08-22 18:00:00', '2024-08-22 20:00:00', 'Provincial Sports Center', NOW(), NOW(), 1, 4, ''),
+    ('Football Match - Youth Game', 'Youth football match', '2024-08-23 14:00:00', '2024-08-23 16:00:00', 'Youth Sports Field', NOW(), NOW(), 1, 1, ''),
+    ('Football Seminar - Tactical Analysis', 'Seminar on football tactics', '2024-08-24 10:00:00', '2024-08-24 12:00:00', 'Academic Center', NOW(), NOW(), 1, 1, '');
+

@@ -19,9 +19,9 @@
           </span>
         </div>
         <div class="box--flex">
-          <div class="content-category-tag">
-            <div>{{ contentObj.params.categoryName }}</div>
-          </div>
+<!--          <div class="content-category-tag">-->
+<!--            <div>{{ contentObj.params.categoryName }}</div>-->
+<!--          </div>-->
           <span class="content-box-time">
             {{ parseTime(contentObj.createTime, "{y}-{m}-{d} {h}:{i}") }}
           </span>

@@ -90,5 +90,12 @@ export default {
           competitions: 'PL,FL1,BL1,SA,PD,WC,EC,CS',
         }
       });
+  },
+
+  getAllActivitiesList() {
+    return request({
+      url: `/activity/list`,
+      method: `get`
+    })
   }
 }

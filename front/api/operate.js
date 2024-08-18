@@ -49,5 +49,21 @@ export default {
             data: contentSet
         })
     },
-    
+
+  createActivity(params) {
+    return request({
+      url: `activity/create`,
+      method: 'post',
+      data: params
+    })
+  },
+
+  joinActivity(activityId) {
+    return request({
+      url: `activity/join`,
+      method: 'put',
+      data: activityId
+    })
+  }
+
 }

@@ -12,12 +12,17 @@
       <div class="woo-box-flex" :style="{ 'min-height': mainMinHeight + 'px' }">
         <!-- 消息盒子 -->
         <div class="content-t" v-loading="loading">
-          <el-empty :description="'暂无数据'" v-if="contentObj.length === 0"></el-empty>
           <div v-if="contentVo.categoryId === '123' " style="width: 605px;">
+            <el-empty :description="'暂无数据'" v-if="contentObj.length === 0"></el-empty>
             <FootballGame v-for="(item, key) in contentObj"
                               :key="key"
                               :gameInfo="item"
             ></FootballGame>
+          </div>
+          <div v-else-if="contentVo.categoryId === '1234'">
+            <Activity v-for="(item, key) in activitiesObjList"
+                      :key="key" :activity="item"
+            ></Activity>
           </div>
           <div v-else>
             <Content
@@ -67,6 +72,7 @@ export default {
     return {
       //菜单分类
       categoryObj: null,
+      activitiesObjList: [],
       //墙内容
       contentObj: [],
       //点赞的墙列表
@@ -104,6 +110,8 @@ export default {
       this.contentVo.categoryId = data;
       if (this.contentVo.categoryId === '123') {
         this.getEuFootballGames();
+      } else if (this.contentVo.categoryId === '1234') {
+        this.getAllActivities();
       } else {
         this.getContent(this.contentVo);
       }
@@ -115,6 +123,18 @@ export default {
         console.log(response.data);
         this.categoryObj = response.data;
         this.contentObj = response.data.matches;
+        this.loading = false;
+      }).catch((err) => {
+        console.log(err);
+        this.loading = false;
+      })
+    },
+
+    getAllActivities() {
+      this.loading = true;
+      touristApi.getAllActivitiesList().then((response) => {
+        console.log(response.data);
+        this.activitiesObjList = response.data;
         this.loading = false;
       }).catch((err) => {
         console.log(err);

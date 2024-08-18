@@ -174,6 +174,7 @@ export default {
             .then((response) => {
               // 登录成功 设置cookie
               this.setCookies(response);
+              localStorage.setItem('userInfo', JSON.stringify(response))
 
               //重新加载
               window.location.reload();

@@ -3,55 +3,78 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.ActivityMapper">
+<mapper namespace="com.oddfar.campus.business.mapper.ActivityMapper">
 
-    <!-- 查询活动列表 -->
-    <select id="selectList" resultType="com.example.ActivityEntity">
+    <!-- 获取所有活动的列表 -->
+    <select id="selectList" resultType="com.oddfar.campus.business.domain.entity.ActivityEntity">
         SELECT * FROM activity
-        <where>
-            <if test="activityEntity != null">
-                <if test="activityEntity.id != null">
-                    AND id = #{activityEntity.id}
-                </if>
-                <if test="activityEntity.name != null">
-                    AND name = #{activityEntity.name}
-                </if>
-                <if test="activityEntity.description != null">
-                    AND description = #{activityEntity.description}
-                </if>
-                <if test="activityEntity.startTime != null">
-                    AND start_time = #{activityEntity.startTime}
-                </if>
-                <if test="activityEntity.endTime != null">
-                    AND end_time = #{activityEntity.endTime}
-                </if>
-                <if test="activityEntity.location != null">
-                    AND location = #{activityEntity.location}
-                </if>
-                <if test="activityEntity.createTime != null">
-                    AND create_time = #{activityEntity.createTime}
-                </if>
-                <if test="activityEntity.updateTime != null">
-                    AND update_time = #{activityEntity.updateTime}
-                </if>
-                <if test="activityEntity.status != null">
-                    AND status = #{activityEntity.status}
-                </if>
-                <!-- 添加其他条件 -->
-            </if>
-        </where>
     </select>
 
+    <!-- 查询活动列表及其详细信息，包括参与者和创建者 -->
+    <select id="selectActivityList" resultMap="activityResultMap">
+        SELECT
+            a.id AS id,
+            a.name AS name,
+            a.description AS description,
+            a.start_time AS startTime,
+            a.end_time AS endTime,
+            a.location AS location,
+            a.create_time AS createTime,
+            a.update_time AS updateTime,
+            a.status AS status,
+            a.creator_id AS creatorId,
+            a.user_list AS userList,
+            u.user_name AS creatorName,
+            u.avatar AS creatorAvatar
+        FROM activity a
+                 LEFT JOIN sys_user u ON a.creator_id = u.user_id
+    </select>
+
+    <!-- 查询参与者信息 -->
+    <select id="selectUsersByIds" parameterType="java.util.List" resultType="com.oddfar.campus.business.domain.entity.UserEntity">
+        SELECT user_id, user_name, nick_name, avatar
+        FROM sys_user
+        WHERE user_id IN
+        <foreach collection="userIds" item="userId" open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </select>
+
+    <resultMap id="activityResultMap" type="com.oddfar.campus.business.domain.vo.ActivityVo">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="startTime" column="startTime"/>
+        <result property="endTime" column="endTime"/>
+        <result property="location" column="location"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="status" column="status"/>
+        <result property="creatorId" column="creatorId"/>
+        <result property="creatorName" column="creatorName"/>
+        <result property="creatorAvatar" column="creatorAvatar"/>
+        <result property="userList" column="userList"/>
+    </resultMap>
+
     <!-- 根据ID查询活动 -->
-    <select id="selectById" resultType="com.example.ActivityEntity">
+    <select id="selectById" resultType="com.oddfar.campus.business.domain.entity.ActivityEntity">
         SELECT * FROM activity WHERE id = #{activityId}
     </select>
 
-    <!-- 插入活动 -->
-    <insert id="insert">
-        INSERT INTO activity (id, name, description, start_time, end_time, location, create_time, update_time, status)
-        VALUES (#{activity.id}, #{activity.name}, #{activity.description}, #{activity.startTime}, #{activity.endTime}, #{activity.location}, #{activity.createTime}, #{activity.updateTime}, #{activity.status})
-    </insert>
+    <!-- 查询活动的 user_list -->
+    <select id="getUserListByActivityId" parameterType="java.lang.Long" resultType="java.lang.String">
+        SELECT user_list
+        FROM activity
+        WHERE id = #{activityId}
+    </select>
+
+    <!-- 更新活动的 user_list -->
+    <update id="updateUserList" parameterType="map">
+        UPDATE activity
+        SET user_list = #{userList}
+        WHERE id = #{activityId}
+    </update>
+
 
     <!-- 更新活动 -->
     <update id="updateById">
@@ -90,6 +113,73 @@
     <delete id="deleteById">
         DELETE FROM activity WHERE id = #{activityId}
     </delete>
+
+    <!-- 获取活动的创建人 ID -->
+    <select id="getCreatorId" resultType="java.lang.Long">
+        SELECT creator_id
+        FROM activity
+        WHERE id = #{activityId}
+    </select>
+
+    <!-- 设置活动的创建人 ID -->
+    <update id="setCreatorId">
+        UPDATE activity
+        SET creator_id = #{creatorId}
+        WHERE id = #{activityId}
+    </update>
+
+<!--    <insert id="insert" parameterType="com.oddfar.campus.business.domain.entity.ActivityEntity">-->
+<!--        INSERT INTO activity (name,-->
+<!--                              description,-->
+<!--                              start_time,-->
+<!--                              end_time,-->
+<!--                              location,-->
+<!--                              create_time,-->
+<!--                              update_time,-->
+<!--                              status,-->
+<!--                              creator_id,-->
+<!--                              user_list)-->
+<!--        VALUES (#{activity.name},-->
+<!--                #{activity.description},-->
+<!--                #{activity.startTime},-->
+<!--                #{activity.endTime},-->
+<!--                #{activity.location},-->
+<!--                #{activity.createTime},-->
+<!--                #{activity.updateTime},-->
+<!--                #{activity.status},-->
+<!--                #{activity.creatorId},-->
+<!--                #{activity.userList})-->
+<!--    </insert>-->
+    <insert id="insert" parameterType="com.oddfar.campus.business.domain.entity.ActivityEntity">
+        INSERT INTO activity (name,
+                              description,
+                              start_time,
+                              end_time,
+                              location,
+                              create_time,
+                              update_time,
+                              status,
+                              creator_id,
+                              user_list)
+        VALUES (#{name},
+                #{description},
+                #{startTime},
+                #{endTime},
+                #{location},
+                #{createTime},
+                #{updateTime},
+                #{status},
+                #{creatorId},
+                #{userList})
+    </insert>
+
+    <!-- 根据活动 ID 更新参与者列表 -->
+    <update id="addParticipants" parameterType="map">
+        UPDATE activity
+        SET user_list = #{userList}
+        WHERE id = #{activityId};
+    </update>
+
 
     <!-- 其他方法... -->
 </mapper>

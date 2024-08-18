@@ -1,3 +1,20 @@
+package com.oddfar.campus.business.controller.web;
+
+import com.oddfar.campus.business.domain.entity.ActivityEntity;
+import com.oddfar.campus.business.domain.vo.ActivityVo;
+import com.oddfar.campus.business.domain.vo.CreateActivityVo;
+import com.oddfar.campus.business.service.ActivityService;
+import com.oddfar.campus.common.annotation.Anonymous;
+import com.oddfar.campus.common.annotation.ApiResource;
+import com.oddfar.campus.common.domain.R;
+import com.oddfar.campus.common.enums.ResBizTypeEnum;
+import com.oddfar.campus.common.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/activity")
 @ApiResource(name = "活动模块api", appCode = "activity", resBizType = ResBizTypeEnum.BUSINESS)
@@ -12,7 +29,7 @@ public class ActivityController {
     @Anonymous
     @GetMapping(value = "/list", name = "查询活动列表")
     public R activityList() {
-        List<ActivityEntity> page = activityService.activitySelect();
+        List<ActivityVo> page = activityService.getActivityList();
 
         return R.ok().put(page);
     }
@@ -31,13 +48,12 @@ public class ActivityController {
 
     /**
      * 创建新活动
-     * @param activity 活动信息
+     * @param createActivityVo 活动信息
      * @return
      */
     @PostMapping(value = "/create", name = "创建新活动")
-    public R createActivity(@RequestBody ActivityEntity activity) {
-        activityService.createActivity(activity);
-        return R.ok();
+    public R createActivity(@Validated  @RequestBody CreateActivityVo createActivityVo) {
+        return R.ok(activityService.createActivity(createActivityVo));
     }
 
     /**
@@ -61,4 +77,16 @@ public class ActivityController {
         activityService.deleteActivity(activityId);
         return R.ok();
     }
+
+    /**
+     * 更新活动信息
+     * @param id 活动id
+     * @return
+     */
+    @PutMapping(value = "/join", name = "加入活动")
+    public R joinActivityByActivityId(@RequestBody Long id) {
+
+        return R.ok(activityService.addUserToActivity(id, SecurityUtils.getUserId()));
+    }
+
 }

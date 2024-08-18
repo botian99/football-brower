@@ -324,12 +324,7 @@ export default {
           console.log("禁止");
         }
       }
-      if (this.cascader.length != 2) {
-        this.$message.warning("Please choose a category");
-        return;
-      } else {
-        this.contentParam.categoryId = this.cascader[1];
-      }
+      this.contentParam.categoryId = this.cascader[0];
       //请求
       operateApi.publishContent(this.contentParam).then((response) => {
         this.$message.success("Release Success");

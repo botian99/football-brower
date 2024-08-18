@@ -1,41 +1,54 @@
+package com.oddfar.campus.business.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.oddfar.campus.business.domain.entity.ActivityEntity;
+import com.oddfar.campus.business.domain.entity.UserEntity;
+import com.oddfar.campus.business.domain.vo.ActivityVo;
+import com.oddfar.campus.business.domain.vo.CreateActivityVo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class ActivityService {
+public interface ActivityService extends IService<ActivityEntity> {
+    /**
+     *
+     * @return
+     */
+    List<ActivityEntity> activitySelect();
 
-    private final ActivityMapper activityMapper;
+    List<ActivityVo> getActivityList();
 
-    public ActivityService(ActivityMapper activityMapper) {
-        this.activityMapper = activityMapper;
-    }
+    /**
+     *
+     * @param activityId
+     * @return
+     */
+    ActivityEntity selectActivityById(Long activityId);
 
-    @Transactional
-    public List<ActivityEntity> activitySelect() {
-        return activityMapper.selectList(null);
-    }
+    List<UserEntity> addUserToActivity(Long activityId, Long userId);
 
-    @Transactional
-    public ActivityEntity selectActivityById(Long activityId) {
-        return activityMapper.selectById(activityId);
-    }
+    int createActivity(CreateActivityVo createActivityVo);
 
-    @Transactional
-    public void createActivity(ActivityEntity activity) {
-        activityMapper.insert(activity);
-    }
+    void updateActivity(ActivityEntity activity);
 
-    @Transactional
-    public void updateActivity(ActivityEntity activity) {
-        activityMapper.updateById(activity);
-    }
+    void deleteActivity(Long activityId);
 
-    @Transactional
-    public void deleteActivity(Long activityId) {
-        activityMapper.deleteById(activityId);
-    }
+    // 添加参与人
+    void addParticipants(Long activityId, String userList);
 
-    // 其他方法...
+    // 删除参与人
+    void removeParticipants(Long activityId, List<String> userList);
+
+    // 获取创建人 ID
+    Long getCreatorId(Long activityId);
+
+    // 设置创建人 ID
+    void setCreatorId(Long activityId, Long creatorId);
+
+    // 获取参与人列表
+    List<String> getParticipantsByActivityId(Long activityId);
+
+
 }

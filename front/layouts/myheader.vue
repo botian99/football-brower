@@ -173,6 +173,39 @@
                       ></path>
                     </svg> </el-dropdown-item
                   ></span>
+                <span @click="createActivity()">
+                  <el-dropdown-item
+                    command="/User/createActivity"
+                    style="font-weight: bolder"
+                    class="text-between-space"
+                  >Create Activity
+                    <svg
+                      t="1638265991107"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="6358"
+                      data-spm-anchor-id="a313x.7781069.0.i8"
+                      width="15"
+                      height="15"
+                    >
+                      <path
+                        d="M92.734962 77.627741h782.658098v490.920693h77.626035V60.140557A60.138851 60.138851 0 0 0 892.453727 0.001706H75.674295A60.138851 60.138851 0 0 0 15.535444 60.140557v902.935801A60.138851 60.138851 0 0 0 75.674295 1023.641726h390.262757v-77.626035H92.734962z"
+                        p-id="6359"
+                        data-spm-anchor-id="a313x.7781069.0.i6"
+                        class="selected"
+                        fill="#8a8a8a"
+                      ></path>
+                      <path
+                        d="M996.523796 727.212637L496.219736 537.412717a18.340217 18.340217 0 0 0-23.884933 22.178867l132.646685 451.254642a18.340217 18.340217 0 0 0 28.150101 9.809883l104.070069-73.360868 48.196384 42.651668a18.340217 18.340217 0 0 0 30.709201-12.368984l5.971233-100.657935a17.9137 17.9137 0 0 0-5.544717-14.07505l-235.437204-229.892488 281.927522 202.59542a18.340217 18.340217 0 0 0 20.899317 0l116.439052-78.052551a18.340217 18.340217 0 0 0-3.83865-30.282684zM204.908847 190.65466h550.206511v77.199518H204.908847zM204.908847 383.866714h262.307755v77.199518H204.908847z"
+                        p-id="6360"
+                        data-spm-anchor-id="a313x.7781069.0.i7"
+                        class=""
+                        fill="#90EDCD"
+                      ></path>
+                    </svg> </el-dropdown-item
+                  ></span>
                 <span @click="exit()">
                   <el-dropdown-item
                     command="/logout"
@@ -271,6 +304,9 @@ export default {
     publish() {
       this.$router.push("/user/publish");
     },
+    createActivity() {
+      this.$router.push("/user/createActivity");
+    }
   },
 };
 </script>

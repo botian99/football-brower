@@ -1,5 +1,6 @@
+package com.oddfar.campus.business.domain.entity;
+
 import lombok.Data;
-import org.apache.ibatis.type.JdbcType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -7,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @TableName("activity")
@@ -39,6 +41,12 @@ public class ActivityEntity implements Serializable {
 
     @TableField("status")
     private Integer status;
+
+    @TableField("creator_id")
+    private Long creatorId; // 创建人的 ID
+
+    @TableField("user_list")
+    private String userList; // 参与人的 ID 列表
 
     // 其他字段...
 }
